@@ -1,0 +1,31 @@
+services:
+  - type: web
+    name: shiftflow
+    runtime: python
+    plan: starter
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT
+    healthCheckPath: /health
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: shiftflow-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: SESSION_COOKIE_SECURE
+        value: "true"
+      - key: SHIFT_FLOW_SEED_DEMO
+        value: "false"
+      - key: SHIFT_FLOW_ADMIN_EMAIL
+        sync: false
+      - key: SHIFT_FLOW_ADMIN_PASSWORD
+        sync: false
+      - key: SHIFT_FLOW_ADMIN_NAME
+        value: ShiftFlow Manager
+
+databases:
+  - name: shiftflow-db
+    databaseName: shiftflow
+    user: shiftflow
+    plan: basic-256mb

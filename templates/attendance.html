@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-head"><div><p class="eyebrow">TIME & ATTENDANCE</p><h1>My attendance</h1></div></div>
+<div class="panel">
+<table><tr><th>Clock in</th><th>Clock out</th><th>Shift</th></tr>
+{% for r in records %}
+<tr><td>{{ r.clock_in.strftime('%Y-%m-%d %H:%M') if r.clock_in else '-' }}</td><td>{{ r.clock_out.strftime('%Y-%m-%d %H:%M') if r.clock_out else 'Working' }}</td><td>{{ r.shift_id or '-' }}</td></tr>
+{% else %}<tr><td colspan="3">No attendance records yet.</td></tr>{% endfor %}
+</table>
+</div>
+{% endblock %}

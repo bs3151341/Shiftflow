@@ -1,0 +1,19 @@
+{
+  "name": "ShiftFlow Workforce",
+  "short_name": "ShiftFlow",
+  "description": "Private workforce scheduling and attendance.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f5f7fb",
+  "theme_color": "#101828",
+  "icons": [
+    {
+      "src": "/static/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

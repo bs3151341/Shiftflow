@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="card" style="max-width: 620px; margin: 2rem auto; text-align: center;">
+  <p class="eyebrow">PHONE ACCESS LINK</p>
+  <h1>Open ShiftFlow on your phone</h1>
+  <p class="lead">Use this link when your phone is connected to the same Wi‑Fi network as this computer.</p>
+
+  <div class="hero-card" style="margin: 1.5rem 0; padding: 1.25rem; border-radius: 16px; background: #f4f7ff; display: block;">
+    <p style="margin: 0 0 0.5rem; color: #5a6475; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em;">Access URL</p>
+    <a href="{{ access_url }}" style="font-size: 1.3rem; font-weight: 700; color: #1d4ed8; text-decoration: none; word-break: break-all;">{{ access_url }}</a>
+  </div>
+
+  <div class="actions" style="justify-content: center;">
+    <a class="btn" href="{{ access_url }}">Open in browser</a>
+    <a class="btn secondary" href="{{ url_for('index') }}">Back home</a>
+  </div>
+
+  <p style="margin-top: 1.5rem; color: #5a6475; font-size: 0.95rem;">
+    If this page is opened from a phone on the same Wi‑Fi, it will work immediately.
+  </p>
+</section>
+{% endblock %}

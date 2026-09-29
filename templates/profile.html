@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="auth-card">
+<p class="eyebrow">ACCOUNT</p><h1>Profile</h1>
+<form method="post">
+<label>Name<input name="name" value="{{ user.name }}" required></label>
+<label>Email<input value="{{ user.email }}" disabled></label>
+<label>Position<input name="position" value="{{ user.position }}"></label>
+<label>Role<input value="{{ user.role|title }}" disabled></label>
+<button class="btn">Save changes</button>
+</form>
+</div>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-head"><div><p class="eyebrow">WORKER PORTAL</p><h1>Welcome, {{ session.name }}.</h1></div></div>
+<div class="stats">
+  <div class="stat"><span>My shifts</span><strong>{{ shifts|length }}</strong></div>
+  <div class="stat"><span>Available</span><strong>{{ available|length }}</strong></div>
+  <div class="stat"><span>Notifications</span><strong>{{ pending_notifications|length }}</strong></div>
+  <div class="stat"><span>Status</span><strong>{{ "Working" if attendance and not attendance.clock_out else "Off" }}</strong></div>
+</div>
+
+{% if pending_notifications %}
+<div class="panel" style="background:linear-gradient(180deg,#edf5ff,#f8fbff);border:1px solid #dfeaff;">
+  <h2>Shift notifications</h2>
+  {% for s in pending_notifications %}
+  <div class="shift" style="padding:16px 0;">
+    <div>
+      <strong>{{ s.date }} · {{ s.start }}–{{ s.end }}</strong><br>
+      <span class="muted">{{ s.position }}</span>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:flex-end;">
+      <form method="post" action="{{ url_for('accept_shift', shift_id=s.id) }}">
+        <button class="btn small" type="submit">Accept</button>
+      </form>
+      <form method="post" action="{{ url_for('decline_shift', shift_id=s.id) }}" style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;">
+        <textarea name="reason" rows="2" placeholder="Reason for declining" required style="min-width:220px;border:1px solid #d6deeb;border-radius:10px;padding:8px 10px;"></textarea>
+        <button class="btn small danger" type="submit">Decline</button>
+      </form>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+<div class="grid-2">
+<div class="panel">
+<h2>Attendance</h2>
+{% if attendance and not attendance.clock_out %}
+<p>You clocked in at {{ attendance.clock_in.strftime('%H:%M') }}.</p>
+<form method="post" action="{{ url_for('clock_out') }}"><button class="btn danger" type="submit">Clock Out</button></form>
+{% else %}
+<p class="muted">You are not currently clocked in.</p>
+<form method="post" action="{{ url_for('clock_in') }}"><button class="btn" type="submit">Clock In</button></form>
+{% endif %}
+</div>
+<div class="panel">
+<h2>Available shifts</h2>
+{% for s in available %}
+<div class="shift">
+<div><strong>{{ s.date }} · {{ s.start }}–{{ s.end }}</strong><br><span class="muted">{{ s.position }}</span></div>
+<span class="badge">Open</span>
+</div>
+{% else %}<p class="muted">No open shifts.</p>{% endfor %}
+</div>
+</div>
+<div class="panel">
+<h2>My assigned shifts</h2>
+{% for s in shifts %}
+<div class="shift">
+  <div><strong>{{ s.date }} · {{ s.start }}–{{ s.end }}</strong><br><span class="muted">{{ s.position }}</span>{% if s.decline_reason %}<br><span class="muted">Reason: {{ s.decline_reason }}</span>{% endif %}</div>
+  <span class="badge">{{ s.decision }}</span>
+</div>
+{% else %}<p class="muted">No assigned shifts.</p>{% endfor %}
+</div>
+{% endblock %}

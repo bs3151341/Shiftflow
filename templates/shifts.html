@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-head"><div><p class="eyebrow">SCHEDULING</p><h1>Create and manage shifts</h1></div></div>
+<div class="panel" style="background:linear-gradient(180deg,#fff,#f8fbff);">
+<form method="post" action="{{ url_for('create_shift') }}" class="form-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;align-items:end;">
+<label style="display:flex;flex-direction:column;gap:8px;font-weight:600;color:#35465c;">Date<input type="date" name="date" required style="padding:12px 14px;border:1px solid #dbe3ef;border-radius:10px;"></label>
+<label style="display:flex;flex-direction:column;gap:8px;font-weight:600;color:#35465c;">Start<input type="time" name="start" required style="padding:12px 14px;border:1px solid #dbe3ef;border-radius:10px;"></label>
+<label style="display:flex;flex-direction:column;gap:8px;font-weight:600;color:#35465c;">End<input type="time" name="end" required style="padding:12px 14px;border:1px solid #dbe3ef;border-radius:10px;"></label>
+<label style="display:flex;flex-direction:column;gap:8px;font-weight:600;color:#35465c;">Position<input name="position" placeholder="Crew Member" required style="padding:12px 14px;border:1px solid #dbe3ef;border-radius:10px;"></label>
+<label style="display:flex;flex-direction:column;gap:8px;font-weight:600;color:#35465c;">Assign worker<select name="worker_id" style="padding:12px 14px;border:1px solid #dbe3ef;border-radius:10px;"><option value="">Open shift</option>{% for w in workers %}<option value="{{ w.id }}">{{ w.name }}</option>{% endfor %}</select></label>
+<div><button class="btn" type="submit">Create shift</button></div>
+</form>
+</div>
+<div class="panel">
+<h2>All shifts</h2>
+{% for s in shifts %}
+<div class="shift" style="padding:16px 0;">
+<div><strong>{{ s.date }} · {{ s.start }}–{{ s.end }}</strong><br><span class="muted">{{ s.position }} · {{ s.worker_id or 'Open' }}</span>{% if s.decline_reason %}<br><span class="muted">Reason: {{ s.decline_reason }}</span>{% endif %}</div>
+<div style="display:flex;gap:10px;align-items:center;">
+<span class="badge">{{ s.decision }}</span>
+<form method="post" action="{{ url_for('delete_shift', shift_id=s.id) }}"><button class="btn danger small">Delete</button></form>
+</div>
+</div>
+{% else %}<p class="muted">No shifts created.</p>{% endfor %}
+</div>
+{% endblock %}

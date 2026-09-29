@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="page-head"><div><p class="eyebrow">MANAGER</p><h1>Attendance</h1></div></div>
+<div class="panel">
+<table><tr><th>Worker</th><th>Clock in</th><th>Clock out</th><th>Status</th></tr>
+{% for r in records %}
+<tr><td>{{ workers[r.worker_id].name if r.worker_id in workers else 'Unknown' }}</td><td>{{ r.clock_in.strftime('%Y-%m-%d %H:%M') if r.clock_in else '-' }}</td><td>{{ r.clock_out.strftime('%Y-%m-%d %H:%M') if r.clock_out else '-' }}</td><td><span class="badge">{{ 'Working' if not r.clock_out else 'Clocked out' }}</span></td></tr>
+{% else %}<tr><td colspan="4">No records yet.</td></tr>{% endfor %}
+</table>
+</div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="login-shell">
+  <div class="login-card">
+    <div class="welcome-badge">Secure access</div>
+    <p class="eyebrow">ShiftFlow</p>
+    <h1>Welcome back</h1>
+    <p class="lead compact">Sign in to continue to your dashboard.</p>
+    <form method="post" class="login-form">
+      <label>Email
+        <input type="email" name="email" placeholder="name@company.com" required>
+      </label>
+      <label>Password
+        <input type="password" name="password" placeholder="Enter your password" required>
+      </label>
+      <button class="btn" type="submit">Login</button>
+    </form>
+    <p class="login-note">Only invited users can access this system. Contact your manager to request an account.</p>
+  </div>
+</div>
+{% endblock %}

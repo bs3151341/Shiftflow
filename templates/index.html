@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero premium-hero">
+  <div class="hero-panel">
+    <div class="welcome-badge">Workforce management for every team</div>
+    <p class="eyebrow">ShiftFlow</p>
+    <h1>Smarter scheduling for busy teams.</h1>
+    <p class="lead">Coordinate staff, manage attendance, and keep every shift organized from one clean system designed for modern teams.</p>
+    <div class="actions">
+      <a class="btn" href="{{ url_for('login') }}">Login</a>
+      <a class="btn secondary" href="{{ url_for('mobile_access') }}">Phone Link</a>
+    </div>
+    <div class="feature-row">
+      <span>Shift planning</span>
+      <span>Attendance tracking</span>
+      <span>Team management</span>
+    </div>
+    <p class="muted" style="margin-top: 1rem;">New staff accounts are created by the manager only.</p>
+  </div>
+</section>
+{% endblock %}
